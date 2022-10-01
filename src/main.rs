@@ -1,4 +1,8 @@
-use std::{cell::RefCell, rc::Rc};
+use std::{
+    cell::RefCell,
+    rc::Rc,
+    sync::{Arc, Mutex},
+};
 
 // Some inspiration
 // // https://github.com/dtolnay/case-studies/blob/master/autoref-specialization/README.md
@@ -67,6 +71,36 @@ macro_rules! check_if_sync {
     };
 }
 
+// trait IsStatic {
+//     fn check_static(&self);
+// }
+
+// impl<T> IsStatic for DispatchWrapper<T>
+// where
+//     T: 'static,
+// {
+//     fn check_static(&self) {
+//         println!("{} has 'static bound", std::any::type_name::<T>());
+//     }
+// }
+
+// trait IsNotStatic {
+//     fn check_static(&self);
+// }
+
+// impl<T> IsNotStatic for &T {
+//     fn check_static(&self) {
+//         println!("{} does not have 'static bound", std::any::type_name::<T>());
+//     }
+// }
+
+// macro_rules! check_if_static {
+//     ($e:expr) => {
+//         let wrapper = DispatchWrapper { _data: $e };
+//         (&wrapper).check_static();
+//     };
+// }
+
 macro_rules! check_values {
     ($($e:expr), *) => {
         $(
@@ -78,6 +112,7 @@ macro_rules! check_values {
 
 pub fn print_threading_trait_impls() {
     let refcell = RefCell::new(1);
+    let mutex = Mutex::new(1);
 
     check_values!(
         23_i32,
@@ -85,45 +120,14 @@ pub fn print_threading_trait_impls() {
         Rc::new(1),
         &Rc::new(1),
         RefCell::new(1),
-        refcell.borrow()
+        refcell.borrow(),
+        Arc::new(1),
+        &Arc::new(1),
+        Mutex::new(1),
+        mutex.lock()
     );
 }
 
 fn main() {
     print_threading_trait_impls();
-}
-
-fn take_any<T>(_value: T) {
-    println!("Took value any {:?}", std::any::type_name::<T>());
-}
-
-fn take_send<T>(_value: T)
-where
-    T: Send,
-{
-    println!("Took value send {:?}", std::any::type_name::<T>());
-}
-
-fn take_sync<T>(_value: T)
-where
-    T: Sync,
-{
-    println!("Took value sync {:?}", std::any::type_name::<T>());
-}
-
-fn take_send_sync<T>(_value: T)
-where
-    T: Send + Sync,
-{
-    println!("Took value send+sync {:?}", std::any::type_name::<T>());
-}
-
-fn take_send_sync_static<T>(_value: T)
-where
-    T: Send + Sync + 'static,
-{
-    println!(
-        "Took value send+sync+'static {:?}",
-        std::any::type_name::<T>()
-    );
 }
