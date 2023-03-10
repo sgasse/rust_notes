@@ -1,0 +1,14 @@
+[package]
+name = "stream_modulation"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-stream = "0.3.4"
+futures = "0.3.26"
+tokio = { version = "1.26.0", features = [
+    "macros",
+    "time",
+    "rt",
+    "rt-multi-thread",
+] }
