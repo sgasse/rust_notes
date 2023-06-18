@@ -14,6 +14,7 @@ Some notes about language concepts, snippets etc.
 - [`bilge` for bit fiddling](https://hecatia-elegua.github.io/blog/no-more-bit-fiddling/)
 - [Scaling Rust builds with Bazel](https://mmapped.blog/posts/17-scaling-rust-builds-with-bazel.html)
 - [Pin and Unpin](https://blog.cloudflare.com/pin-and-unpin-in-rust/)
+- [Sharing data among embassy tasks](https://dev.to/apollolabsbin/sharing-data-among-tasks-in-rust-embassy-synchronization-primitives-59hk)
 
 ## Cargo
 
