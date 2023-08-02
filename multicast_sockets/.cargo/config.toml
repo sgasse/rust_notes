@@ -1,0 +1,3 @@
+[target.aarch64-linux-android]
+linker = "../../../android-ndk-r25c/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android28-clang++"
+runner = "./android.runner"

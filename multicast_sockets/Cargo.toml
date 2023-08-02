@@ -1,0 +1,13 @@
+[package]
+name = "multicast_sockets"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.72"
+bytes = "1.4.0"
+clap = { version = "4.3.19", features = ["derive"] }
+humantime = "2.1.0"
+nix = "0.26.2"
+pnet_datalink = "0.34.0"
+static_assertions = "1.1.0"
