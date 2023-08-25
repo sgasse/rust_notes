@@ -16,6 +16,7 @@ Some notes about language concepts, snippets etc.
 - [Pin and Unpin](https://blog.cloudflare.com/pin-and-unpin-in-rust/)
 - [Sharing data among embassy tasks](https://dev.to/apollolabsbin/sharing-data-among-tasks-in-rust-embassy-synchronization-primitives-59hk)
 - [Building a Rust workspace with Bazel](https://www.tweag.io/blog/2023-07-27-building-rust-workspace-with-bazel/)
+- [Pin and Suffering](https://fasterthanli.me/articles/pin-and-suffering)
 
 ## Cargo
 
