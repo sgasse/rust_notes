@@ -6,6 +6,7 @@ Some notes about language concepts, snippets etc.
 - [`macro_rules!` examples](./macro_examples/)
 - [`Send` and `Sync`](./send_sync/README.md)
 - [Stream modulation](./stream_modulation/)
+- [Manual FFI (Calling Rust from C)](./cffi/)
 
 ## Links
 
