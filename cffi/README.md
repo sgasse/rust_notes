@@ -19,3 +19,4 @@ Resources:
 - [Rustonomicon: FFI](https://doc.rust-lang.org/nomicon/ffi.html)
 - [FFI Omnibus - Objects by Jake Goulding](http://jakegoulding.com/rust-ffi-omnibus/objects/)
 - [Complex data types & Rust FFI by Kyle Douglass](http://kmdouglass.github.io/posts/complex-data-types-and-the-rust-ffi/)
+- [Rust FFI the wrong way by Ralf Minderhoud](https://www.ralphminderhoud.com/blog/rust-ffi-wrong-way/)
