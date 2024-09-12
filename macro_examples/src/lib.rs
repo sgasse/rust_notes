@@ -95,3 +95,56 @@ struct_wrapper!(
         subfield4, 40
     ]
 );
+
+/// Extracting enum variant content.
+///
+/// Helpful links:
+/// https://veykril.github.io/tlborm/decl-macros/patterns/internal-rules.html
+/// https://veykril.github.io/tlborm/syntax-extensions/source-analysis.html#token-trees
+macro_rules! inner_as_mut {
+    // Special matcher to reinterpret something as pattern.
+    // Cannot be matched from the "outside" since `@` is not a valid character for our macro elements.
+    (@as_pat $p:pat) => { $p };
+
+    // Try to match value against the token tree reinterpreted as containing one value.
+    // Will expand to something like this:
+    // ```
+    // if let Number::Integer(ref mut inner) = n1 {
+    //     Some(inner)
+    // } else {
+    //     None
+    // }
+    // ```
+    //
+    // With `$($tts:tt)*`, we match repetitions of a token tree, so e.g. `Number::Integer` as
+    // the tokens `Number` and `Integer`.
+    // Pasting the repetitions of token trees (so `Number::Integer`) and concatenating it with
+    // `(ref mut inner)` would give us a valid pattern.
+    // However since the individual parts are not valid, this would not be parsed correctly.
+    // Therefore, we pass the concatenation through a special case (of this same macro!) to
+    // reinterpret it as pattern.
+    ($value:expr, $($tts:tt)*) => {
+        if let inner_as_mut!(@as_pat $($tts)*(ref mut inner)) = $value {
+            Some(inner)
+        } else {
+            None
+        }
+    };
+}
+
+#[test]
+fn use_inner_as_mut() {
+    enum Number {
+        Integer(i32),
+        Float(f64),
+    }
+
+    let mut n1 = Number::Integer(1);
+    let mut n2 = Number::Float(3.);
+
+    let mutable_ref_n1 = inner_as_mut!(n1, Number::Integer);
+    let mutable_ref_n2 = inner_as_mut!(n2, Number::Float);
+
+    assert!(mutable_ref_n1.is_some());
+    assert!(mutable_ref_n2.is_some());
+}
